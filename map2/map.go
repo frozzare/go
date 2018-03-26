@@ -9,7 +9,7 @@ func mp(s interface{}) (reflect.Value, error) {
 	v := reflect.ValueOf(s)
 
 	if v.Kind() != reflect.Map {
-		return v, fmt.Errorf("%s is not a struct", v.Kind())
+		return v, fmt.Errorf("%s is not a map", v.Kind())
 	}
 
 	return v, nil
