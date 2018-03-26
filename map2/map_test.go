@@ -3,7 +3,7 @@ package map2
 import (
 	"testing"
 
-	assert "github.com/frozzare/go-assert"
+	"github.com/frozzare/go-assert"
 )
 
 var m = map[string]int{
