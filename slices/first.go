@@ -1,4 +1,4 @@
-package sliceutil
+package slices
 
 // First returns the first item in a slice or nil.
 func First(input interface{}) interface{} {

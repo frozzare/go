@@ -1,4 +1,4 @@
-package sliceutil
+package slices
 
 // Last returns the last item in a slice or nil.
 func Last(input interface{}) interface{} {

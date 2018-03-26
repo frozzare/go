@@ -1,4 +1,4 @@
-package sliceutil
+package slices
 
 // Reject returns a new slice containing all values
 // in the slice that don't satisfy the predicate function.

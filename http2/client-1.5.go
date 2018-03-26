@@ -1,6 +1,6 @@
 // +build !go1.7
 
-package httputil
+package http2
 
 import (
 	"net"
