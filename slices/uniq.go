@@ -1,13 +1,14 @@
 package slices
 
 import (
+	"errors"
 	"reflect"
 )
 
 // Uniq returns a new slice containing all values
 // in the slice that satisfy the predicate function
 // and are uniq.
-func Uniq(input, predicate interface{}) interface{} {
+func Uniq(input, predicate interface{}) (interface{}, error) {
 	var mv reflect.Value
 	var sv reflect.Value
 
@@ -48,8 +49,8 @@ func Uniq(input, predicate interface{}) interface{} {
 	})
 
 	if mv.IsValid() {
-		return sv.Interface()
+		return sv.Interface(), nil
 	}
 
-	return nil
+	return nil, errors.New("Not a valid slice")
 }

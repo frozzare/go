@@ -1,12 +1,13 @@
 package slices
 
 import (
+	"errors"
 	"reflect"
 )
 
 // Map creates a new slice with the results of calling a
 // provided predicate on every item in the calling slice.
-func Map(input, predicate interface{}) interface{} {
+func Map(input, predicate interface{}) (interface{}, error) {
 	var slice reflect.Value
 
 	each(input, predicate, func(current, key, value reflect.Value) bool {
@@ -21,8 +22,8 @@ func Map(input, predicate interface{}) interface{} {
 	})
 
 	if slice.IsValid() {
-		return slice.Interface()
+		return slice.Interface(), nil
 	}
 
-	return nil
+	return nil, errors.New("Not a valid slice")
 }

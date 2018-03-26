@@ -7,13 +7,15 @@ import (
 )
 
 func TestUniq(t *testing.T) {
-	v := Uniq([]int{1, 2, 3, 1, 2, 3}, nil)
+	v, err := Uniq([]int{1, 2, 3, 1, 2, 3}, nil)
 
+	assert.Nil(t, err)
 	assert.Equal(t, []int{1, 2, 3}, v.([]int))
 
-	v2 := Uniq([]string{"fredrik", "elli", "farfar", "elli"}, func(s string) bool {
+	v2, err := Uniq([]string{"fredrik", "elli", "farfar", "elli"}, func(s string) bool {
 		return s[0] == 'f'
 	})
 
+	assert.Nil(t, err)
 	assert.Equal(t, []string{"fredrik", "farfar"}, v2.([]string))
 }

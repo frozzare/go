@@ -1,10 +1,11 @@
 package slices
 
 import (
+	"errors"
 	"reflect"
 )
 
-func filter(input, predicate interface{}, compare bool) interface{} {
+func filter(input, predicate interface{}, compare bool) (interface{}, error) {
 	var slice reflect.Value
 
 	each(input, predicate, func(current, key, value reflect.Value) bool {
@@ -21,14 +22,14 @@ func filter(input, predicate interface{}, compare bool) interface{} {
 	})
 
 	if slice.IsValid() {
-		return slice.Interface()
+		return slice.Interface(), nil
 	}
 
-	return nil
+	return nil, errors.New("Not a valid slice")
 }
 
 // Filter returns a new slice containing all values
 // in the slice that satisfy the predicate function.
-func Filter(input, predicate interface{}) interface{} {
+func Filter(input, predicate interface{}) (interface{}, error) {
 	return filter(input, predicate, true)
 }
