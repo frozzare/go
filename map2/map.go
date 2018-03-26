@@ -1,6 +1,7 @@
 package map2
 
 import (
+	"errors"
 	"fmt"
 	"reflect"
 )
@@ -15,14 +16,13 @@ func mp(s interface{}) (reflect.Value, error) {
 	return v, nil
 }
 
-// Keys return the given map keys or nil
-// if not a map or slice is not valid.
-func Keys(m interface{}) interface{} {
+// Keys return the given map keys or error.
+func Keys(m interface{}) (interface{}, error) {
 	var slice reflect.Value
 
 	s, err := mp(m)
 	if err != nil {
-		return nil
+		return nil, err
 	}
 
 	for _, k := range s.MapKeys() {
@@ -35,20 +35,19 @@ func Keys(m interface{}) interface{} {
 	}
 
 	if slice.IsValid() {
-		return slice.Interface()
+		return slice.Interface(), nil
 	}
 
-	return nil
+	return nil, errors.New("No keys found")
 }
 
-// Values return the given map values or nil
-// if not a map or slice is not valid.
-func Values(m interface{}) interface{} {
+// Values return the given map values or error.
+func Values(m interface{}) (interface{}, error) {
 	var slice reflect.Value
 
 	s, err := mp(m)
 	if err != nil {
-		return nil
+		return nil, err
 	}
 
 	for _, k := range s.MapKeys() {
@@ -63,8 +62,8 @@ func Values(m interface{}) interface{} {
 	}
 
 	if slice.IsValid() {
-		return slice.Interface()
+		return slice.Interface(), nil
 	}
 
-	return nil
+	return nil, errors.New("No values found")
 }

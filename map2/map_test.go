@@ -21,17 +21,21 @@ var m2 = map[interface{}]interface{}{
 }
 
 func TestKeys(t *testing.T) {
-	v := Keys(m)
+	v, err := Keys(m)
+	assert.Nil(t, err)
 	assert.Equal(t, 6, len(v.([]string)))
 
-	v = Keys(m2)
+	v, err = Keys(m2)
+	assert.Nil(t, err)
 	assert.Equal(t, 2, len(v.([]interface{})))
 }
 
 func TestValues(t *testing.T) {
-	v := Values(m)
+	v, err := Values(m)
+	assert.Nil(t, err)
 	assert.Equal(t, 6, len(v.([]int)))
 
-	v = Keys(m2)
+	v, err = Keys(m2)
+	assert.Nil(t, err)
 	assert.Equal(t, 2, len(v.([]interface{})))
 }
