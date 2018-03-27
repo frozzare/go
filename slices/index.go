@@ -20,7 +20,7 @@ func IndexOf(s, v interface{}) int {
 	return -1
 }
 
-// Has returns true if given value exists.
-func Has(s, v interface{}) bool {
+// Contains returns true if given value exists.
+func Contains(s, v interface{}) bool {
 	return IndexOf(s, v) != -1
 }

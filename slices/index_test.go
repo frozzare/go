@@ -21,13 +21,13 @@ func TestIndexOf(t *testing.T) {
 	assert.Equal(t, 1, v)
 }
 
-func TestHas(t *testing.T) {
-	v := Has([]string{"hello"}, "world")
+func TestContains(t *testing.T) {
+	v := Contains([]string{"hello"}, "world")
 	assert.False(t, v)
 
-	v = Has([]int{1, 2, 3}, 2)
+	v = Contains([]int{1, 2, 3}, 2)
 	assert.True(t, v)
 
-	v = Has([]Person{Person{Name: "Elli"}, Person{Name: "Fredrik"}}, Person{Name: "Fredrik"})
+	v = Contains([]Person{Person{Name: "Elli"}, Person{Name: "Fredrik"}}, Person{Name: "Fredrik"})
 	assert.True(t, v)
 }
