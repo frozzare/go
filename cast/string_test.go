@@ -27,6 +27,7 @@ func TestString(t *testing.T) {
 		{"hello", "hello"},
 		{[]int{1, 2, 3}, "[1 2 3]"},
 		{nil, ""},
+		{[]byte("hello"), "hello"},
 	}
 
 	for _, item := range test {

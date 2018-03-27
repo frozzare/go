@@ -28,6 +28,8 @@ func TestBool(t *testing.T) {
 		{"false", false},
 		{"1", true},
 		{"0", false},
+		{[]byte("true"), true},
+		{[]byte("false"), false},
 		// errors
 		{"x", false, true},
 		{"1.5", false, true},

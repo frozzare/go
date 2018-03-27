@@ -45,7 +45,11 @@ func Int(value interface{}) (int64, error) {
 		}
 		return int64(f), nil
 	case []byte:
-		return strconv.ParseInt(string(v), 10, 64)
+		f, err := strconv.ParseFloat(string(v), 64)
+		if err != nil {
+			return int64(0), nil
+		}
+		return int64(f), nil
 	case nil:
 		return int64(0), nil
 	default:
