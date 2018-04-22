@@ -52,7 +52,8 @@ func Reverse(s string) string {
 	return string(runes)
 }
 
-// SwapCase returns a string where uppercase is swapped with lowercase and lowercase to uppercase and vice versa.
+// SwapCase returns a string where uppercase is swapped with
+// lowercase and lowercase to uppercase and vice versa.
 func SwapCase(s string) string {
 	runes := []rune(s)
 
