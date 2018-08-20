@@ -1,6 +1,8 @@
 package template2
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestIsset(t *testing.T) {
 	var m = map[string]string{
@@ -46,5 +48,17 @@ func TestIsset(t *testing.T) {
 
 	if Isset(p, "foobar") {
 		t.Fatal("Expected foobar not to be set")
+	}
+}
+
+func TestToJSON(t *testing.T) {
+	var m = map[string]string{
+		"foo": "",
+		"bar": "foo",
+	}
+
+	j := ToJSON(m)
+	if j != `{"bar":"foo","foo":""}` {
+		t.Fatal("Expected json string to match")
 	}
 }

@@ -6,7 +6,8 @@ import (
 )
 
 var funcs = template.FuncMap{
-	"isset": Isset,
+	"isset":  Isset,
+	"toJson": ToJSON,
 }
 
 // ExecuteString replace template tags in string with data.
