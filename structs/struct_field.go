@@ -14,6 +14,21 @@ type StructField struct {
 	value reflect.Value
 }
 
+// CanSet reports whether the value can be changed.
+func (s *StructField) CanSet() bool {
+	return s.value.CanSet()
+}
+
+// ReflectField returns the reflect struct field.
+func (s *StructField) ReflectField() reflect.StructField {
+	return s.field
+}
+
+// ReflectValue returns the reflect field value.
+func (s *StructField) ReflectValue() reflect.Value {
+	return s.value
+}
+
 // IsZero reports whether a value is a zero value of its kind.
 func (s *StructField) IsZero() bool {
 	return reflect2.IsZero(s.value)
@@ -40,7 +55,7 @@ func (s *StructField) Set(v interface{}) error {
 		return errors.New("Field is not exported")
 	}
 
-	if !s.value.CanSet() {
+	if !s.CanSet() {
 		return errors.New("Field cannot be set")
 	}
 
