@@ -7,10 +7,6 @@ import (
 	"github.com/frozzare/go/reflect2"
 )
 
-type Child struct {
-	Name string
-}
-
 // StructField represents a field.
 type StructField struct {
 	field reflect.StructField

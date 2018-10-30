@@ -6,6 +6,10 @@ import (
 	"github.com/frozzare/go-assert"
 )
 
+type Child struct {
+	Name string
+}
+
 type Person struct {
 	FirstName string `json:"first_name"`
 	LastName  string `json:"last_name"`
