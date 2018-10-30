@@ -9,6 +9,28 @@ import (
 type Person struct {
 	FirstName string `json:"first_name"`
 	LastName  string `json:"last_name"`
+	Child     struct {
+		Name string
+	}
+}
+
+func TestFieldChild(t *testing.T) {
+	s := &Person{
+		FirstName: "Fredrik",
+		Child: struct {
+			Name string
+		}{
+			Name: "test",
+		},
+	}
+
+	f, err := Field(s, "Child")
+	assert.Nil(t, err)
+
+	f2, err := f.Field("Name")
+	assert.Nil(t, err)
+
+	assert.Equal(t, "test", f2.Value())
 }
 
 func TestField(t *testing.T) {
@@ -59,5 +81,5 @@ func TestNames(t *testing.T) {
 	v, err := Names(s)
 
 	assert.Nil(t, err)
-	assert.Equal(t, []string{"FirstName", "LastName"}, v)
+	assert.Equal(t, []string{"FirstName", "LastName", "Child"}, v)
 }

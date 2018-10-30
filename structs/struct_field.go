@@ -19,6 +19,11 @@ func (s *StructField) CanSet() bool {
 	return s.value.CanSet()
 }
 
+// Field returns a field from a struct by name.
+func (s *StructField) Field(name string) (*StructField, error) {
+	return Field(s.Value(), name)
+}
+
 // ReflectField returns the reflect struct field.
 func (s *StructField) ReflectField() reflect.StructField {
 	return s.field
