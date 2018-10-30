@@ -76,5 +76,19 @@ func (s *StructField) Set(v interface{}) error {
 
 // Value returns the field value.
 func (s *StructField) Value() interface{} {
+	if s.Kind() == reflect.Ptr && s.IsZero() {
+		e := s.value.Type().Elem()
+		if e.Kind() == reflect.Ptr {
+			return nil
+		}
+
+		z := reflect.New(e)
+		s.value.Set(z)
+	}
+
+	if s.Kind() == reflect.Ptr {
+		s.value = s.value.Elem()
+	}
+
 	return s.value.Interface()
 }
