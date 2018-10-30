@@ -44,7 +44,10 @@ func TestFieldChildNilPtr(t *testing.T) {
 	f2, err := f.Field("Name")
 	assert.Nil(t, err)
 
-	assert.Equal(t, "", f2.Value())
+	err = f2.Set("test")
+	assert.Nil(t, err)
+
+	assert.Equal(t, "test", f2.Value())
 }
 
 func TestField(t *testing.T) {

@@ -86,9 +86,5 @@ func (s *StructField) Value() interface{} {
 		s.value.Set(z)
 	}
 
-	if s.Kind() == reflect.Ptr {
-		s.value = s.value.Elem()
-	}
-
 	return s.value.Interface()
 }
