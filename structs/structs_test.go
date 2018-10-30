@@ -6,14 +6,14 @@ import (
 	"github.com/frozzare/go-assert"
 )
 
-type Child struct {
-	Name string
-}
-
 type Person struct {
 	FirstName string `json:"first_name"`
 	LastName  string `json:"last_name"`
 	Child     *Child
+}
+
+type Person2 struct {
+	Child Child
 }
 
 func TestFieldChild(t *testing.T) {
@@ -43,6 +43,42 @@ func TestFieldChildNilPtr(t *testing.T) {
 
 	f2, err := f.Field("Name")
 	assert.Nil(t, err)
+
+	err = f2.Set("test")
+	assert.Nil(t, err)
+
+	assert.Equal(t, "test", f2.Value())
+}
+
+func TestFieldChildStruct(t *testing.T) {
+	s := &Person2{}
+
+	f, err := Field(s, "Child")
+	assert.Nil(t, err)
+
+	f2, err := f.Field("Name")
+	assert.Nil(t, err)
+
+	err = f2.Set("test")
+	assert.Nil(t, err)
+
+	assert.Equal(t, "test", f2.Value())
+}
+
+func TestFieldChildStruct2(t *testing.T) {
+	s := &Person2{
+		Child: Child{
+			Name: "Fredrik",
+		},
+	}
+
+	f, err := Field(s, "Child")
+	assert.Nil(t, err)
+
+	f2, err := f.Field("Name")
+	assert.Nil(t, err)
+
+	assert.Equal(t, "Fredrik", f2.Value())
 
 	err = f2.Set("test")
 	assert.Nil(t, err)

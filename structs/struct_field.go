@@ -7,6 +7,10 @@ import (
 	"github.com/frozzare/go/reflect2"
 )
 
+type Child struct {
+	Name string
+}
+
 // StructField represents a field.
 type StructField struct {
 	field reflect.StructField
@@ -84,6 +88,10 @@ func (s *StructField) Value() interface{} {
 
 		z := reflect.New(e)
 		s.value.Set(z)
+	}
+
+	if s.Kind() == reflect.Struct {
+		s.value = reflect.ValueOf(s.value.Addr().Interface())
 	}
 
 	return s.value.Interface()
