@@ -25,6 +25,7 @@ jobs:
       run: |
         go mod verify
         go mod download
+      working-directory: go/src/github.com/frozzare/go
     - name: Test
       run: |
         go test ./...
