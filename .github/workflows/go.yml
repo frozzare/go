@@ -22,6 +22,7 @@ jobs:
         path: go/src/github.com/frozzare/go
     - name: Debug
       run: |
+        echo $GITHUB_WORKSPACE
         pwd
         ls -la .
         ls -la go/src/github.com/frozzare/go
