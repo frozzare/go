@@ -19,7 +19,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
       with:
-        path: go/src/github.com/frozzare/go
+        path: src/github.com/frozzare/go
     - name: Debug
       run: |
         echo $GITHUB_WORKSPACE
