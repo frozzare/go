@@ -21,6 +21,10 @@ jobs:
       with:
         fetch-depth: 1
         path: go/src/github.com/frozzare/go
+    - name: Install
+      run: |
+        go mod verify
+        go mod download
     - name: Test
       run: |
         go test ./...
