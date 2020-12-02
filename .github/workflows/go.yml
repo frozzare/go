@@ -7,6 +7,12 @@ on:
   pull_request:
 
 name: test
+
+defaults:
+  run:
+    shell: bash
+    working-directory: go/src/github.com/frozzare/go
+
 jobs:
   test:
     strategy:
@@ -16,23 +22,17 @@ jobs:
     steps:
     - name: Install Go
       uses: actions/setup-go@v2
+      with:
+          go-version: 1.15
     - name: Checkout code
       uses: actions/checkout@v2
       with:
-        path: src/github.com/frozzare/go
-    - name: Debug
-      run: |
-        echo $GITHUB_WORKSPACE
-        pwd
-        ls -la .
-        ls -la go/src/github.com/frozzare/go
+        path: go/src/github.com/frozzare/go
     - name: Install
       run: |
         go mod verify
         go mod download
-      working-directory: go/src/github.com/frozzare/go
     - name: Test
       run: |
         go test ./...
         go vet ./...
-      working-directory: go/src/github.com/frozzare/go
