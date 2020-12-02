@@ -19,7 +19,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
       with:
-        fetch-depth: 1
         path: go/src/github.com/frozzare/go
     - name: Install
       run: |
@@ -30,3 +29,4 @@ jobs:
       run: |
         go test ./...
         go vet ./...
+      working-directory: go/src/github.com/frozzare/go
