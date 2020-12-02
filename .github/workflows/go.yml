@@ -20,6 +20,11 @@ jobs:
       uses: actions/checkout@v2
       with:
         path: go/src/github.com/frozzare/go
+    - name: Debug
+      run: |
+        pwd
+        ls -la .
+        ls -la go/src/github.com/frozzare/go
     - name: Install
       run: |
         go mod verify
