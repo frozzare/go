@@ -34,7 +34,7 @@ func callFunc(f interface{}, a ...interface{}) ([]reflect.Value, error) {
 type Pipeline func(a ...interface{}) (interface{}, error)
 
 // Pipe performs left-to-right function composition.
-// It accepts zero or more funcs fs and creates a pipeline.
+// It accepts zero or more functions and creates a pipeline.
 func Pipe(fa ...interface{}) Pipeline {
 	return func(a ...interface{}) (out interface{}, err error) {
 		defer func() {
@@ -92,7 +92,7 @@ func Tap(f interface{}, a ...interface{}) interface{} {
 }
 
 // Error will check if the given interface is a error and return it.
-// If not a error it will return nil.
+// If not an error nil will be returned.
 func Error(v interface{}) error {
 	err, ok := v.(error)
 	if ok && err != nil {
