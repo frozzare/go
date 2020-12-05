@@ -10,7 +10,7 @@ go get -u github.com/frozzare/go
 
 ## Documentation
 
-See https://pkg.go.dev/github.com/frozzare/go for modules documentation.
+See https://pkg.go.dev/github.com/frozzare/go for documentation.
 
 ## License
 
