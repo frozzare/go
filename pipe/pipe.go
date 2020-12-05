@@ -35,7 +35,7 @@ type Pipeline func(a ...interface{}) (interface{}, error)
 
 // Pipe performs left-to-right function composition.
 // It accepts zero or more functions and creates a pipeline.
-func Pipe(fa ...interface{}) Pipeline {
+func Pipe(fs ...interface{}) Pipeline {
 	return func(a ...interface{}) (out interface{}, err error) {
 		defer func() {
 			if r := recover(); r != nil {
@@ -43,7 +43,7 @@ func Pipe(fa ...interface{}) Pipeline {
 			}
 		}()
 
-		for _, f := range fa {
+		for _, f := range fs {
 			res, err := callFunc(f, a...)
 			if err != nil {
 				return nil, err
