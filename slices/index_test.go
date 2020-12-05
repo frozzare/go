@@ -17,7 +17,7 @@ func TestIndexOf(t *testing.T) {
 	v = IndexOf([]int{1, 2, 3}, 2)
 	assert.Equal(t, 1, v)
 
-	v = IndexOf([]Person{Person{Name: "Elli"}, Person{Name: "Fredrik"}}, Person{Name: "Fredrik"})
+	v = IndexOf([]Person{{Name: "Elli"}, {Name: "Fredrik"}}, Person{Name: "Fredrik"})
 	assert.Equal(t, 1, v)
 }
 
@@ -28,6 +28,6 @@ func TestContains(t *testing.T) {
 	v = Contains([]int{1, 2, 3}, 2)
 	assert.True(t, v)
 
-	v = Contains([]Person{Person{Name: "Elli"}, Person{Name: "Fredrik"}}, Person{Name: "Fredrik"})
+	v = Contains([]Person{{Name: "Elli"}, {Name: "Fredrik"}}, Person{Name: "Fredrik"})
 	assert.True(t, v)
 }
