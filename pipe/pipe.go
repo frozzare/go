@@ -10,10 +10,24 @@ import (
 // Pipeline is the func type for the pipeline result.
 type Pipeline func(a ...interface{}) (interface{}, error)
 
+func interfaceValue(in reflect.Value) interface{} {
+	out := in.Interface()
+	ok := true
+	for ok {
+		next, ok := out.(reflect.Value)
+		if ok {
+			out = next.Interface()
+		} else {
+			break
+		}
+	}
+	return out
+}
+
 func callFunc(f interface{}, a ...interface{}) ([]reflect.Value, error) {
 	fv := reflect.ValueOf(f)
 	if reflect2.IsZero(fv) || fv.Kind() != reflect.Func {
-		return nil, fmt.Errorf("Function is not callable: %v", f)
+		return nil, fmt.Errorf("function is not callable: %v", f)
 	}
 
 	ft := reflect.TypeOf(f)
@@ -24,9 +38,9 @@ func callFunc(f interface{}, a ...interface{}) ([]reflect.Value, error) {
 	}
 
 	res := fv.Call(av)
+	out := interfaceValue(res[len(res)-1])
 
-	err, ok := res[len(res)-1].Interface().(error)
-	if ok && err != nil {
+	if err := Error(out); err != nil {
 		return nil, err
 	}
 
@@ -45,10 +59,16 @@ func pipe(fs []interface{}, args []interface{}) ([]interface{}, error) {
 				continue
 			}
 
+			out := interfaceValue(r)
+
+			if err := Error(out); err != nil {
+				return nil, err
+			}
+
 			if i >= len(args) {
-				args = append(args, r.Interface())
+				args = append(args, out)
 			} else {
-				args[i] = r.Interface()
+				args[i] = out
 			}
 		}
 	}
