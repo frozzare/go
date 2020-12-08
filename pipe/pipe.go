@@ -7,6 +7,9 @@ import (
 	"github.com/frozzare/go/reflect2"
 )
 
+// Pipeline is the func type for the pipeline result.
+type Pipeline func(a ...interface{}) (interface{}, error)
+
 func callFunc(f interface{}, a ...interface{}) ([]reflect.Value, error) {
 	fv := reflect.ValueOf(f)
 	if reflect2.IsZero(fv) || fv.Kind() != reflect.Func {
@@ -30,39 +33,45 @@ func callFunc(f interface{}, a ...interface{}) ([]reflect.Value, error) {
 	return res, nil
 }
 
-// Pipeline is the func type for the pipeline result.
-type Pipeline func(a ...interface{}) (interface{}, error)
+func pipe(fs []interface{}, args []interface{}) ([]interface{}, error) {
+	for _, f := range fs {
+		res, err := callFunc(f, args...)
+		if err != nil {
+			return nil, err
+		}
+
+		for i, r := range res {
+			if i != 0 && reflect2.IsZero(r) {
+				continue
+			}
+
+			if i >= len(args) {
+				args = append(args, r.Interface())
+			} else {
+				args[i] = r.Interface()
+			}
+		}
+	}
+
+	return args, nil
+}
 
 // Pipe performs left-to-right function composition.
 // It accepts zero or more functions and creates a pipeline.
 func Pipe(fs ...interface{}) Pipeline {
-	return func(a ...interface{}) (out interface{}, err error) {
+	return func(args ...interface{}) (out interface{}, err error) {
 		defer func() {
 			if r := recover(); r != nil {
 				err = fmt.Errorf("pipeline panicked: %v", r)
 			}
 		}()
 
-		for _, f := range fs {
-			res, err := callFunc(f, a...)
-			if err != nil {
-				return nil, err
-			}
-
-			for i, r := range res {
-				if reflect2.IsZero(r) {
-					continue
-				}
-
-				if i >= len(a) {
-					a = append(a, r.Interface())
-				} else {
-					a[i] = r.Interface()
-				}
-			}
+		args, err = pipe(fs, args)
+		if err != nil {
+			return nil, err
 		}
 
-		return a[0], nil
+		return args[0], nil
 	}
 }
 
