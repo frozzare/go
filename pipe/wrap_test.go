@@ -11,12 +11,13 @@ var (
 	numbers = []int{1, 2, 3}
 )
 
-func TestMap(t *testing.T) {
-	loop := Wrap(slices.Map, func(item interface{}) interface{} {
-		return item.(int) + 1
-	})
+func TestWrap(t *testing.T) {
+	p := Pipe(
+		Wrap(slices.Map, func(item interface{}) interface{} {
+			return item.(int) + 1
+		}),
+	)
 
-	p := Pipe(loop)
 	v, err := p(numbers)
 
 	assert.Nil(t, err)
