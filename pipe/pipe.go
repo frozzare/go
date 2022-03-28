@@ -129,3 +129,19 @@ func Error(v interface{}) error {
 	}
 	return nil
 }
+
+// Either returns the value or the error if not nil
+func Either(v interface{}, err error) interface{} {
+	if err != nil {
+		return err
+	}
+	return v
+}
+
+// Value returns the first argument
+func Value(v ...interface{}) interface{} {
+	if len(v) == 0 {
+		return nil
+	}
+	return v[0]
+}

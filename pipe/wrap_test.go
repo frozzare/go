@@ -11,7 +11,7 @@ var (
 	numbers = []int{1, 2, 3}
 )
 
-func TestWrap(t *testing.T) {
+func TestWrapMap(t *testing.T) {
 	p := Pipe(
 		Wrap(slices.Map, func(item interface{}) interface{} {
 			return item.(int) + 1
